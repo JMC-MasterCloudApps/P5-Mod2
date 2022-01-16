@@ -25,8 +25,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private static final String[] BOOKS_PATH = {"/api/*/books/*"};
   private static final String[] COMMENTS_PATH = {"/api/*/books/*/comments/*", "/api/*/users/*/comments/*"};
 
-  private static final String[] API_PATHS = {"/api/**"};
-
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -38,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers(PUBLIC_PATHS).permitAll()
         .antMatchers(HttpMethod.GET, BOOKS_PATH).permitAll()
         .antMatchers(HttpMethod.POST, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .antMatchers(COMMENTS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .and()
         .httpBasic();

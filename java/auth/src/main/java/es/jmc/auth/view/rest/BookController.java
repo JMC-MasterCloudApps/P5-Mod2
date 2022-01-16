@@ -4,15 +4,14 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import es.jmc.auth.controller.BookService;
 import es.jmc.auth.model.Book;
-import es.jmc.auth.model.Comment;
 import es.jmc.auth.model.ResponseView;
-import es.jmc.auth.model.User;
 import java.net.URI;
 import java.util.Collection;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,4 +51,9 @@ public class BookController {
 		return ResponseEntity.created(location).body(book);
 	}
 
+	@DeleteMapping("{bookId}")
+	public void deleteBook(@PathVariable Long bookId) {
+
+		books.deleteById(bookId);
+	}
 }

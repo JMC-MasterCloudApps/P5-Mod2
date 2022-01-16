@@ -5,6 +5,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import es.jmc.auth.controller.BookService;
 import es.jmc.auth.model.Book;
 import es.jmc.auth.model.Comment;
+import es.jmc.auth.model.ResponseView;
 import es.jmc.auth.model.User;
 import java.net.URI;
 import java.util.Collection;
@@ -28,25 +29,19 @@ public class BookController {
 
 	private final BookService books;
 
-	@JsonView(Book.Basic.class)
 	@GetMapping()
 	public Collection<Book> getBooks() {
 		return books.findAll();
 	}
 
-	interface BookWithCommentsAndUser extends Book.Basic, Book.WithComment,
-			Comment.Basic, Comment.WithUser, User.Basic {
-	}
-
 	@GetMapping("{id}")
-	@JsonView(BookWithCommentsAndUser.class)
+	@JsonView(ResponseView.BookWithCommentsAndUser.class)
 	public Book getBook(@PathVariable long id) {
 
 		return books.findById(id).orElseThrow();
 	}
 
 	@PostMapping()
-	@JsonView(Book.Basic.class)
 	public ResponseEntity<Book> createBook(@RequestBody Book book) {
 
 		books.save(book);

@@ -20,18 +20,16 @@ import org.hibernate.Hibernate;
 @Entity
 public class User {
 	
-	public interface Basic {}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private Long id;
 
 	@Column(unique = true)
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private String nick;
 
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private String mail;
 
 	public User(String nick, String mail) {

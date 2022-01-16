@@ -7,6 +7,7 @@ import es.jmc.auth.controller.CommentService;
 import es.jmc.auth.controller.UserService;
 import es.jmc.auth.model.Book;
 import es.jmc.auth.model.Comment;
+import es.jmc.auth.model.ResponseView;
 import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -33,12 +34,8 @@ public class CommentController {
 	private final UserService users;
 	private final BookService books;
 
-	interface CommentWithBookId
-			extends Book.WithId, Comment.WithBook, Comment.Basic {
-	}
-
 	@PostMapping("books/{id}/comments/")
-	@JsonView(CommentWithBookId.class)
+	@JsonView(ResponseView.CommentWithBookId.class)
 	public ResponseEntity<?> createComment(@RequestBody Comment comment,
 			@PathVariable Long id) {
 
@@ -61,7 +58,7 @@ public class CommentController {
 		return ResponseEntity.created(location).body(comment);
 	}
 
-	@JsonView(CommentWithBookId.class)
+	@JsonView(ResponseView.CommentWithBookId.class)
 	@DeleteMapping("books/{bookId}/comments/{id}")
 	public Comment deleteComment(@PathVariable Long bookId,
 			@PathVariable Long id) {
@@ -76,7 +73,7 @@ public class CommentController {
 	}
 
 	@GetMapping("/users/{id}/comments")
-	@JsonView(CommentWithBookId.class)
+	@JsonView(ResponseView.CommentWithBookId.class)
 	public List<Comment> getAllCommentsFromUser(@PathVariable long id) {
 
 		if (!users.existsById(id)) {

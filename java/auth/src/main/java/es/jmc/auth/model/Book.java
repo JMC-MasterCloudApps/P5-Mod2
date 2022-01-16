@@ -23,33 +23,29 @@ import org.hibernate.Hibernate;
 @RequiredArgsConstructor
 @Entity
 public class Book {
-
-	public interface WithId {}
-	public interface Basic extends WithId {}
-	public interface WithComment {}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(WithId.class)
+	@JsonView(ResponseView.Min.class)
 	private Long id;
 
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Min.class)
 	private String title;
 
 	@Column(columnDefinition = "TEXT")
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private String summary;
 
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private String author;
 
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private String editorial;
 
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private int publishYear;
 
-	@JsonView(WithComment.class)
+	@JsonView(ResponseView.WithComment.class)
 	@OneToMany(mappedBy="book", cascade = CascadeType.ALL, orphanRemoval = true)
 	@ToString.Exclude
 	private List<Comment> comments;

@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,28 +21,24 @@ import org.hibernate.Hibernate;
 @Entity
 public class Comment {
 
-	public interface Basic {}
-	public interface WithBook {}
-	public interface WithUser {}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private Long id;
 
 	@Column(columnDefinition = "TEXT")
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private String publishtext;
 
-	@JsonView(Basic.class)
+	@JsonView(ResponseView.Basic.class)
 	private int punctuation;
 	
 	@ManyToOne
-	@JsonView(WithBook.class)
+	@JsonView(ResponseView.WithBook.class)
 	private Book book;
 	
 	@ManyToOne
-	@JsonView(WithUser.class)
+	@JsonView(ResponseView.WithUser.class)
 	private User user;
 
 	public Comment(User user, int punctuation, String publishtext) {

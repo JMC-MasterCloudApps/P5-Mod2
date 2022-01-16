@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +22,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private static final String[] PUBLIC_PATHS = {"/", "index", "/css/*", "/js/*"};
+  private static final String[] BOOKS_PATH = {"/api/*/books/*"};
+
   private static final String[] API_PATHS = {"/api/**"};
 
 
@@ -33,7 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         .authorizeHttpRequests()
         .antMatchers(PUBLIC_PATHS).permitAll()
-        .antMatchers(API_PATHS).hasRole(ADMIN.name())
+        //.antMatchers(API_PATHS).hasAnyRole(ADMIN.name(), USER.name())
+        .antMatchers(HttpMethod.GET, BOOKS_PATH).permitAll()
         .and()
         .httpBasic();
 }

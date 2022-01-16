@@ -59,8 +59,7 @@ public class CommentController {
 
 	@JsonView(ResponseView.CommentWithBookId.class)
 	@DeleteMapping("books/{bookId}/comments/{id}")
-	public Comment deleteComment(@PathVariable Long bookId,
-			@PathVariable Long id) {
+	public Comment deleteComment(@PathVariable Long bookId, @PathVariable Long id) {
 
 		Comment comment = comments.findById(id).orElseThrow();
 
@@ -69,6 +68,15 @@ public class CommentController {
 		books.deleteCommentById(bookId, id);
 
 		return commentToReturn;
+	}
+
+	@JsonView(ResponseView.CommentWithBookId.class)
+	@GetMapping("books/{bookId}/comments/{id}")
+	public Comment getComment(@PathVariable Long bookId, @PathVariable Long id) {
+
+		return books.findById(bookId).orElseThrow()
+				.getComments().stream().filter(comment -> comment.getId().equals(id)).findFirst().orElseThrow();
+
 	}
 
 	@GetMapping("/users/{id}/comments")

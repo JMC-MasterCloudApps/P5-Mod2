@@ -7,7 +7,8 @@ public class ResponseView {
   public interface WithComment extends Basic {}
   public interface WithBook {}
   public interface WithUser {}
-  public interface CommentWithBookId extends Min, WithBook, Basic {}
-  public interface BookWithCommentsAndUser extends Basic, WithComment, WithUser {
-  }
+  public interface CommentWithBookId extends WithBook  {}
+  public interface BookWithCommentsAndUser extends WithComment, WithUser {}
+
+  public interface Full extends BookWithCommentsAndUser, CommentWithBookId {}
 }

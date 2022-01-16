@@ -52,8 +52,7 @@ public class CommentController {
 
 		books.saveComment(comment, id);
 
-		URI location = fromCurrentRequest().path("/{id}")
-				.build(comment.getId());
+		URI location = fromCurrentRequest().path("/{id}").build(comment.getId());
 
 		return ResponseEntity.created(location).body(comment);
 	}

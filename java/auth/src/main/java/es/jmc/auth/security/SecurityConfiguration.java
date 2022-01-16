@@ -23,9 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private static final String[] PUBLIC_PATHS = {"/", "index", "/css/*", "/js/*"};
   private static final String[] BOOKS_PATH = {"/api/*/books/*"};
+  private static final String[] COMMENTS_PATH = {"/api/*/books/*/comments/*", "/api/*/users/*/comments/*"};
 
   private static final String[] API_PATHS = {"/api/**"};
-
 
   private final PasswordEncoder passwordEncoder;
 
@@ -36,9 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         .authorizeHttpRequests()
         .antMatchers(PUBLIC_PATHS).permitAll()
-        //.antMatchers(API_PATHS).hasAnyRole(ADMIN.name(), USER.name())
         .antMatchers(HttpMethod.GET, BOOKS_PATH).permitAll()
         .antMatchers(HttpMethod.POST, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
+        .antMatchers(COMMENTS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .and()
         .httpBasic();
 }

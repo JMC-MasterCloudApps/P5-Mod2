@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers(PUBLIC_PATHS).permitAll()
         //.antMatchers(API_PATHS).hasAnyRole(ADMIN.name(), USER.name())
         .antMatchers(HttpMethod.GET, BOOKS_PATH).permitAll()
+        .antMatchers(HttpMethod.POST, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .and()
         .httpBasic();
 }

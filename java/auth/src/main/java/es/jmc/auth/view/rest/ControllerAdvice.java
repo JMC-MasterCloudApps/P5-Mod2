@@ -1,4 +1,4 @@
-package es.jmc.auth.controller;
+package es.jmc.auth.view.rest;
 
 import static es.jmc.auth.security.UserRole.ADMIN;
 import static es.jmc.auth.security.UserRole.USER;

@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequestMapping("api/v1/users/")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
@@ -46,7 +48,7 @@ public class UserController {
 		return ResponseEntity.created(location).body(user);
 	}
 
-	@PutMapping("/users/{id}")
+	@PutMapping("{id}")
 	public User replaceUser(@RequestBody User newUser, @PathVariable long id) {
 
 		newUser.setId(id);
@@ -54,17 +56,17 @@ public class UserController {
 		return newUser;
 	}
 
-	@GetMapping("/users/")
+	@GetMapping()
 	public List<User> getUsers() {
 		return users.findAll();
 	}
 
-	@GetMapping("/users/{id}")
+	@GetMapping("{id}")
 	public User getUser(@PathVariable long id) {
 		return users.findById(id).orElseThrow();
 	}
 
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<User> deleteUser(@PathVariable long id) {
 
 		User user = users.findById(id).orElseThrow();

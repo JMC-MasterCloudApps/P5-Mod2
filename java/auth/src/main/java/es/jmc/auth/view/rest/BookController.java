@@ -16,18 +16,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
+@RequestMapping("api/v1/books/")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BookController {
 
 	private final BookService books;
 
 	@JsonView(Book.Basic.class)
-	@GetMapping("/books/")
+	@GetMapping()
 	public Collection<Book> getBooks() {
 		return books.findAll();
 	}
@@ -36,14 +38,14 @@ public class BookController {
 			Comment.Basic, Comment.WithUser, User.Basic {
 	}
 
-	@GetMapping("/books/{id}")
+	@GetMapping("{id}")
 	@JsonView(BookWithCommentsAndUser.class)
 	public Book getBook(@PathVariable long id) {
 
 		return books.findById(id).orElseThrow();
 	}
 
-	@PostMapping("/books/")
+	@PostMapping()
 	@JsonView(Book.Basic.class)
 	public ResponseEntity<Book> createBook(@RequestBody Book book) {
 

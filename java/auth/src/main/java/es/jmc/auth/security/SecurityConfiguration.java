@@ -29,7 +29,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private static final String[] BOOKS_PATH = {"/api/*/books/*"};
   private static final String[] COMMENTS_PATH = {"/api/*/books/*/comments/*", "/api/*/users/*/comments/*"};
 
-  //private final PasswordEncoder passwordEncoder;
   private final AuthEntryPointJwt unauthorizedHandler;
 
   private final UserDetailsServiceImplementation userDetailsService;
@@ -47,36 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .antMatchers(COMMENTS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .anyRequest().authenticated();
-//        .and()
-//        .httpBasic();
   }
 
   @Override
   public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
     authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(new PasswordConfiguration().passwordEncoder());
   }
-
-//  @Bean
-//  @Override
-//  protected UserDetailsService userDetailsService() {
-//
-//    final var bob = User.builder()
-//        .username("bob")
-//        .password(passwordEncoder.encode("clean"))
-//        .roles(ADMIN.name())
-////        .authorities()
-//        .build();
-//
-//    final var jim = User.builder()
-//        .username("jim")
-//        .password(passwordEncoder.encode("jimbo"))
-//        .roles(USER.name())
-////        .authorities()
-//        .build();
-//
-//
-//    return new InMemoryUserDetailsManager(bob, jim);
-//  }
 
   @Bean
   @Override

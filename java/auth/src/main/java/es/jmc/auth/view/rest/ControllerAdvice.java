@@ -28,8 +28,11 @@ class JsonViewConfiguration extends AbstractMappingJacksonResponseBodyAdvice {
   }
 
   @Override
-  protected void beforeBodyWriteInternal(MappingJacksonValue bodyContainer, MediaType contentType,
-                                         MethodParameter returnType, ServerHttpRequest request, ServerHttpResponse response) {
+  protected void beforeBodyWriteInternal(MappingJacksonValue bodyContainer,
+                                         MediaType contentType,
+                                         MethodParameter returnType,
+                                         ServerHttpRequest request,
+                                         ServerHttpResponse response) {
 
     Class<?> viewClass = ResponseView.Min.class;
     final var authentication = SecurityContextHolder.getContext().getAuthentication();

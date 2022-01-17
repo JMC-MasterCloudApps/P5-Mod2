@@ -36,8 +36,7 @@ public class CommentController {
 
 	@PostMapping("books/{id}/comments/")
 	@JsonView(ResponseView.CommentWithBookId.class)
-	public ResponseEntity<?> createComment(@RequestBody Comment comment,
-			@PathVariable Long id) {
+	public ResponseEntity<?> createComment(@RequestBody Comment comment, @PathVariable Long id) {
 
 		String nick = null;
 		if (comment.getUser() != null) {

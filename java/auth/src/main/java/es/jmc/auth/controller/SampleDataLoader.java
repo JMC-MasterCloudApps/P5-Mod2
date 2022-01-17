@@ -8,10 +8,11 @@ import es.jmc.auth.model.User;
 import es.jmc.auth.view.repository.BookRepository;
 import es.jmc.auth.view.repository.RoleRepository;
 import es.jmc.auth.view.repository.UserRepository;
+import java.util.Set;
 import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,16 +22,17 @@ public class SampleDataLoader {
 	private final BookRepository books;
 	private final UserRepository users;
 	private final RoleRepository roles;
+	private final PasswordEncoder passEncoder;
 
 	@PostConstruct
 	public void init() {
 
-		roles.save(new Role(ERole.ROLE_ADMIN));
-		roles.save(new Role(ERole.ROLE_USER));
+		final var adminRole = roles.save(new Role(ERole.ROLE_ADMIN));
+		final var userRole = roles.save(new Role(ERole.ROLE_USER));
 
-		var user1 = users.save(new User("pepe", "pepe@gmail.com"));
-		var user2 = users.save(new User("juan", "juan@hotmail.com"));
-		users.save(new User("rafa", "rafa85@terra.es"));
+		var user1 = users.save(new User("pepe", "pepe@gmail.com", passEncoder.encode("pass"), Set.of(adminRole)));
+		var user2 = users.save(new User("juan", "juan@hotmail.com", passEncoder.encode("pass"), Set.of(userRole)));
+		users.save(new User("rafa", "rafa85@terra.es", passEncoder.encode("pass"), Set.of(userRole)));
 		
 		var book1 = new Book(
 				"Don Quijote",

@@ -1,5 +1,6 @@
 package es.jmc.auth.view.rest;
 
+import static java.lang.Boolean.TRUE;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static java.util.stream.Collectors.toSet;
@@ -60,11 +61,11 @@ public class AuthController {
 
   private Optional<String> checkUserAndEmail(SignupRequest request) {
 
-    if (userRepository.existsByNick(request.username())) {
+    if (TRUE.equals(userRepository.existsByNick(request.username()))) {
       return of("Username already exists!");
     }
 
-    if (userRepository.existsByMail(request.email())) {
+    if (TRUE.equals(userRepository.existsByMail(request.email()))) {
       return of("Email already exists!");
     }
 

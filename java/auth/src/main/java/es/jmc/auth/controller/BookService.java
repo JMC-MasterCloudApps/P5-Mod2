@@ -38,7 +38,6 @@ public class BookService {
 	public void saveComment(Comment comment, Long bookId) {
 
 		Book book = books.findById(bookId).orElseThrow();
-
 		book.addComment(comment);
 
 		comments.save(comment);

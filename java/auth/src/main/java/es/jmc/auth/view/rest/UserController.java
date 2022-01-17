@@ -1,5 +1,6 @@
 package es.jmc.auth.view.rest;
 
+import static org.springframework.http.HttpStatus.PRECONDITION_FAILED;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import es.jmc.auth.controller.CommentService;
@@ -72,11 +73,11 @@ public class UserController {
 		User user = users.findById(id).orElseThrow();
 
 		List<Comment> comment = comments.findAllCommentsByUserId(id);
-		if (comment.size() == 0) {
+		if (comment.isEmpty()) {
 			users.deleteById(id);
 			return ResponseEntity.ok(user);
 		} else {
-			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+			return ResponseEntity.status(PRECONDITION_FAILED).build();
 		}
 	}
 }

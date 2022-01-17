@@ -8,6 +8,7 @@ import es.jmc.auth.controller.UserService;
 import es.jmc.auth.model.Book;
 import es.jmc.auth.model.Comment;
 import es.jmc.auth.model.ResponseView;
+import es.jmc.auth.security.UserDetailsImplementation;
 import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,6 +16,7 @@ import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +40,9 @@ public class CommentController {
 	@JsonView(ResponseView.CommentWithBookId.class)
 	public ResponseEntity<?> createComment(@RequestBody Comment comment, @PathVariable Long id) {
 
-		String nick = null;
-		if (comment.getUser() != null) {
-			nick = comment.getUser().getNick();
-		}
+		final var authentication = SecurityContextHolder.getContext().getAuthentication();
+		var userPrincipal = (UserDetailsImplementation) authentication.getPrincipal();
+		String nick = userPrincipal.getUsername();
 
 		if (nick == null) {
 			return ResponseEntity.badRequest().body("User nick not provided");

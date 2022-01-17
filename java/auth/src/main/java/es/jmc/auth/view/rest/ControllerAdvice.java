@@ -46,7 +46,7 @@ class JsonViewConfiguration extends AbstractMappingJacksonResponseBodyAdvice {
 
     if (authorities.stream()
         .anyMatch(o -> USER.getGrantedAuthorities().contains(o))) {
-      viewClass = ResponseView.Full.class;
+      viewClass = ResponseView.WithComment.class;
     }
 
     if (authorities.stream()

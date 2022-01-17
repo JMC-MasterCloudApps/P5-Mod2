@@ -31,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private static final String[] COMMENTS_PATH = {"/api/*/books/*/comments/*", "/api/*/users/*/comments/*"};
 
   private final AuthEntryPointJwt unauthorizedHandler;
+  private final CustomAccessHandler customAccessHandler;
 
   private final UserDetailsServiceImplementation userDetailsService;
 
@@ -38,13 +39,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity httpSecurity) throws Exception {
 
     httpSecurity.cors().and().csrf().disable()
-        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+        .accessDeniedHandler(customAccessHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeHttpRequests()
         .antMatchers(PUBLIC_PATHS).permitAll()
         .antMatchers(HttpMethod.GET, BOOKS_PATH).permitAll()
         .antMatchers(HttpMethod.POST, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, BOOKS_PATH).hasAnyRole(ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, COMMENTS_PATH).hasAnyRole(ADMIN.name())
         .antMatchers(COMMENTS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .anyRequest().authenticated();
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,7 +22,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  private static final String[] PUBLIC_PATHS = {"/", "index", "/css/*", "/js/*"};
+  private static final String[] PUBLIC_PATHS = {"/", "index", "/css/*", "/js/*", "/api/auth/*"};
   private static final String[] BOOKS_PATH = {"/api/*/books/*"};
   private static final String[] COMMENTS_PATH = {"/api/*/books/*/comments/*", "/api/*/users/*/comments/*"};
 
@@ -64,4 +65,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return new InMemoryUserDetailsManager(bob, jim);
   }
 
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 }

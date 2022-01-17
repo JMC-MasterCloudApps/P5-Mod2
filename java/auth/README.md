@@ -1,4 +1,4 @@
-# Practice 5. Autenticación y autorización
+# Práctica 5. Autenticación y autorización
 
 ## Usage
 

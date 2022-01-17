@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -46,6 +47,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .antMatchers(COMMENTS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .anyRequest().authenticated();
+
+    httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 
   @Override
@@ -57,5 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
+  }
+
+  @Bean
+  public AuthTokenFilter authenticationJwtTokenFilter() {
+    return new AuthTokenFilter();
   }
 }

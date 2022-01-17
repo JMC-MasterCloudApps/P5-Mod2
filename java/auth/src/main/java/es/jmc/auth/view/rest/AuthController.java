@@ -25,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("api/auth/")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthController {
 
@@ -43,7 +45,7 @@ public class AuthController {
   private final JwtUtils jwtUtils;
 
   @PostMapping("signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest request) {
+  public ResponseEntity<String> registerUser(@Valid @RequestBody SignupRequest request) {
 
     final var validationMessage = checkUserAndEmail(request);
     if (validationMessage.isPresent()) {
@@ -95,9 +97,10 @@ public class AuthController {
     return roles;
   }
 
-  @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request) {
+  @PostMapping("signin")
+  public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest request) {
 
+    log.info(request.toString());
     var userPassToken = new UsernamePasswordAuthenticationToken(request.username(), request.password());
     Authentication authentication = authManager.authenticate(userPassToken);
     SecurityContextHolder.getContext().setAuthentication(authentication);

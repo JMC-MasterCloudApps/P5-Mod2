@@ -9,11 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -22,48 +25,58 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  private static final String[] PUBLIC_PATHS = {"/", "index", "/css/*", "/js/*", "/api/auth/*"};
+  private static final String[] PUBLIC_PATHS = {"/", "index", "/css/*", "/js/*", "/api/auth/**"};
   private static final String[] BOOKS_PATH = {"/api/*/books/*"};
   private static final String[] COMMENTS_PATH = {"/api/*/books/*/comments/*", "/api/*/users/*/comments/*"};
 
-  private final PasswordEncoder passwordEncoder;
+  //private final PasswordEncoder passwordEncoder;
+  private final AuthEntryPointJwt unauthorizedHandler;
+
+  private final UserDetailsServiceImplementation userDetailsService;
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-    httpSecurity
-        .csrf().disable()
+    httpSecurity.cors().and().csrf().disable()
+        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeHttpRequests()
         .antMatchers(PUBLIC_PATHS).permitAll()
         .antMatchers(HttpMethod.GET, BOOKS_PATH).permitAll()
         .antMatchers(HttpMethod.POST, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .antMatchers(HttpMethod.DELETE, BOOKS_PATH).hasAnyRole(USER.name(), ADMIN.name())
         .antMatchers(COMMENTS_PATH).hasAnyRole(USER.name(), ADMIN.name())
-        .and()
-        .httpBasic();
-}
-
-  @Bean
-  @Override
-  protected UserDetailsService userDetailsService() {
-
-    final var bob = User.builder()
-        .username("bob")
-        .password(passwordEncoder.encode("clean"))
-        .roles(ADMIN.name())
-//        .authorities()
-        .build();
-
-    final var jim = User.builder()
-        .username("jim")
-        .password(passwordEncoder.encode("jimbo"))
-        .roles(USER.name())
-//        .authorities()
-        .build();
-
-
-    return new InMemoryUserDetailsManager(bob, jim);
+        .anyRequest().authenticated();
+//        .and()
+//        .httpBasic();
   }
+
+  @Override
+  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(new PasswordConfiguration().passwordEncoder());
+  }
+
+//  @Bean
+//  @Override
+//  protected UserDetailsService userDetailsService() {
+//
+//    final var bob = User.builder()
+//        .username("bob")
+//        .password(passwordEncoder.encode("clean"))
+//        .roles(ADMIN.name())
+////        .authorities()
+//        .build();
+//
+//    final var jim = User.builder()
+//        .username("jim")
+//        .password(passwordEncoder.encode("jimbo"))
+//        .roles(USER.name())
+////        .authorities()
+//        .build();
+//
+//
+//    return new InMemoryUserDetailsManager(bob, jim);
+//  }
 
   @Bean
   @Override

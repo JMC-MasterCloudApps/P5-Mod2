@@ -1,0 +1,16 @@
+{
+    "name": "practica-2-books-node",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "node src/server",
+        "dev": "nodemon src/server"
+    },
+    "dependencies": {
+        "express": "4.17.1",
+        "mongoose": "6.1.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
+}

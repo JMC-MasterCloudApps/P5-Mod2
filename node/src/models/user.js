@@ -26,10 +26,10 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is mandatory']
     },
-    roles: {
+    roles: [{
         type: Schema.Types.ObjectId,
         ref: 'Role'
-    }
+    }]
 });
 
 export const User = model('User', userSchema);

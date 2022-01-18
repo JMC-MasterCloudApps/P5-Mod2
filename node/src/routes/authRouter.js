@@ -34,7 +34,8 @@ router.post('/signup',async (req, res) => {
 
     let roleDB = await Role.findOne({name: req.body.roles});
     if (!roleDB) {
-        return res.status(NOT_FOUND_CODE).send(ROLE_REQUIRED_RESPONSE);
+        console.log(`${ROLE_REQUIRED_RESPONSE.error} Assigning default role: 'user'`);
+        roleDB = await Role.findOne({name: "user"});
     }
 
     const user = new User({

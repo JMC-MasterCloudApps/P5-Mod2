@@ -4,6 +4,8 @@ import { User } from './models/user.js';
 import { Book } from './models/book.js';
 
 const url = 'mongodb://localhost:27017/booksDB';
+const ADMIN = {name: 'admin'}
+const USER = {name: 'user'}
 const USER1 = {
     _id: new mongoose.Types.ObjectId('5fda3234e9e3fd53e3907bed'),
     nick: 'user1',
@@ -68,10 +70,13 @@ async function init() {
     console.log('Initializing database');
     console.log('Populating database with roles')
     await Role.deleteMany({});
-
+    const dbAdmin = await new Role(ADMIN).save();
+    const dbuser = await new Role(USER).save();
 
     console.log('Populating database with users');
     await User.deleteMany({});
+    USER1.roles = dbAdmin.id;
+    USER2.roles = dbuser.id;
     await new User(USER1).save();
     await new User(USER2).save();
 

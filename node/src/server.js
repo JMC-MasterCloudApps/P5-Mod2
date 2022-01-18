@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import { connect, disconnect } from './database.js';
 import booksRouter from './routes/bookRouter.js';
 import usersRouter from './routes/userRouter.js';
+import authRouter from './routes/authRouter.js';
 
 const app = express();
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(json());
 app.use('/api/v1/books', booksRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/auth', authRouter)
 
 async function main() {
 

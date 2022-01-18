@@ -1,0 +1,794 @@
+{
+	"info": {
+		"_postman_id": "14526c84-059f-44e9-b349-e7ae24aef718",
+		"name": "cloudApps Mod 2 - Practica5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get books",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8443/api/v1/books/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/books/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create book",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Clean Code\",\r\n    \"summary\": \"Clarity is King\",\r\n    \"author\": \"Uncle Bob\",\r\n    \"editorial\": \"DNR\",\r\n    \"publishYear\": 2003,\r\n    \"comments\": [\r\n        {\r\n            \"bookId\": 0,\r\n            \"author\": \"string\",\r\n            \"content\": \"string\",\r\n            \"score\": 0\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/books/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"publishtext\": \"Estuvo buenísimo\",\r\n    \"punctuation\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/books/3/comments/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"3",
+						"comments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/books/3/comments/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"3",
+						"comments",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/books/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/books/2/comments/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"2",
+						"comments",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8443/api/v1/users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth_signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"jony\", \n    \"email\": \"jony@mail.com\",\n    \"password\": \"snow\",\n    \"roles\": [\"user\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/auth/signup",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth_signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"juan\", \n    \"password\": \"pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/auth/signin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Books",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTZkZjdlYjE5ZTA2NzM4ZGRlYjM1MSIsImlhdCI6MTY0MjUyMDQ0OSwiZXhwIjoxNjQyNjA2ODQ5fQ.FC6mbsJvQgEhbbkGX_uH6mSwYkO2-NJUj_T-q65XigI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Book",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTZkZjdlYjE5ZTA2NzM4ZGRlYjM1MSIsImlhdCI6MTY0MjUyMDQ0OSwiZXhwIjoxNjQyNjA2ODQ5fQ.FC6mbsJvQgEhbbkGX_uH6mSwYkO2-NJUj_T-q65XigI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/5fda350d3749aa4832165b84",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"5fda350d3749aa4832165b84"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Book",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTZkZjdlYjE5ZTA2NzM4ZGRlYjM1MSIsImlhdCI6MTY0MjUyMDQ0OSwiZXhwIjoxNjQyNjA2ODQ5fQ.FC6mbsJvQgEhbbkGX_uH6mSwYkO2-NJUj_T-q65XigI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Clean Code\",\r\n    \"summary\": \"Clarity is King\",\r\n    \"author\": \"Uncle Bob\",\r\n    \"publisher\": \"OReilly\",\r\n    \"publicationYear\": 2008,\r\n    \"comments\": [\r\n        {\r\n            \"bookId\": 0,\r\n            \"author\": \"string\",\r\n            \"content\": \"string\",\r\n            \"score\": 0\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Book",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTZkZjdlYjE5ZTA2NzM4ZGRlYjM1MSIsImlhdCI6MTY0MjUyMDQ0OSwiZXhwIjoxNjQyNjA2ODQ5fQ.FC6mbsJvQgEhbbkGX_uH6mSwYkO2-NJUj_T-q65XigI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/61e6a4a57a18220b59169c53",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"61e6a4a57a18220b59169c53"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTZkZjdlYjE5ZTA2NzM4ZGRlYjM1MSIsImlhdCI6MTY0MjUyMDQ0OSwiZXhwIjoxNjQyNjA2ODQ5fQ.FC6mbsJvQgEhbbkGX_uH6mSwYkO2-NJUj_T-q65XigI",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userNick\": \"user1\",\r\n    \"comment\": \"Estuvo buenísimo\",\r\n    \"score\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/61e6a4bd7a18220b59169c58/comments/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"61e6a4bd7a18220b59169c58",
+						"comments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTZkZjdlYjE5ZTA2NzM4ZGRlYjM1MSIsImlhdCI6MTY0MjUyMDQ0OSwiZXhwIjoxNjQyNjA2ODQ5fQ.FC6mbsJvQgEhbbkGX_uH6mSwYkO2-NJUj_T-q65XigI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/5fda350d3749aa4832165b84/comments/5fdb4812df5c2555a401b6da?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"5fda350d3749aa4832165b84",
+						"comments",
+						"5fdb4812df5c2555a401b6da"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node Comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXBlIiwiaWF0IjoxNjQyNDU4NzY1LCJleHAiOjE2NDI1NDUxNjV9.rtWC5MvydTakEpdXHrFMrzpGJ05PeKyLjniNigNIJqoy7xV1Ylr7zKBt6wBKexfbE35iulWZZXNREAmA1BuFyw",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuIiwiaWF0IjoxNjQyNDYwNTg1LCJleHAiOjE2NDI1NDY5ODV9.zJjDESCyMsJTnWey7DW4TvkBZfyCKczpWkQmeIRUWKMP8PbrT29HqleSR7oJHr0HqYyWYyVr3Q9A9lJd5B519g",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/5fda350d3749aa4832165b84/comments/5fdb4812df5c2555a401b6da",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"5fda350d3749aa4832165b84",
+						"comments",
+						"5fdb4812df5c2555a401b6da"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node auth_signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"jony\", \n    \"email\": \"jony@mail.com\",\n    \"password\": \"snow\",\n    \"roles\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node auth_signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"jony\", \n    \"password\": \"snow\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

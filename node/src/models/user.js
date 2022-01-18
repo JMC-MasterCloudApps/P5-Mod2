@@ -40,8 +40,9 @@ export function toResponse(document) {
         return document.map(elem => toResponse(elem));
     } else {
         let response = document.toObject({ versionKey: false });
-        response.id = response._id.toString();
         delete response._id;
+        delete response.password;
+        delete response.roles;
         return response;
     }
 }

@@ -1,5 +1,5 @@
-import {raw, Router} from 'express';
-import { Book, toResponse as toResponseBook } from '../models/book.js';
+import { Router} from 'express';
+import {Book, toFullResponse, toResponse as toResponseBook} from '../models/book.js';
 import { User } from '../models/user.js';
 import { toResponse as toResponseComment } from '../models/comment.js';
 import mongoose from 'mongoose';
@@ -11,13 +11,24 @@ const BOOK_NOT_FOUND_RESPONSE = { "error": "Book not found" }
 const router = Router();
 
 const getAllBooks = async function(req, res) {
-    const allBooks = await Book.find().exec();
-    res.json(toResponseBook(allBooks));
-}
 
-router.get('/', [authJwt.verifyToken, getAllBooks]);
+    let token = req.headers["x-access-token"];
+
+    if (token) {
+        console.log('Registered user');
+        const allBooks = await Book.find().populate("comments.user").exec();
+        res.json(toFullResponse(allBooks));
+
+    } else {
+        console.log('Guest user');
+        const allBooks = await Book.find().exec();
+        res.json(toResponseBook(allBooks));
+    }
+}
+router.get('/', [getAllBooks]);
 
 const bookDetail = async function (req, res) {
+
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -33,7 +44,7 @@ const bookDetail = async function (req, res) {
 
     res.json(toResponseBook(book));
 };
-router.get('/:id', [authJwt.verifyToken, bookDetail]);
+router.get('/:id', [bookDetail]);
 
 const commentDetail = async function (req, res) {
     const id = req.params.id;
@@ -136,7 +147,7 @@ const deleteBook = async function (req, res)  {
     res.json(toResponseBook(book));
 
 };
-router.delete('/:id', [authJwt.verifyToken, deleteBook]);
+router.delete('/:id', [authJwt.verifyToken, authJwt.isAdmin, deleteBook]);
 
 const deleteComment = async function(req, res) {
     const id = req.params.id;
@@ -164,6 +175,6 @@ const deleteComment = async function(req, res) {
     res.json(toResponseComment(comment));
 
 };
-router.delete('/:id/comments/:commentId', [authJwt.verifyToken, deleteComment]);
+router.delete('/:id/comments/:commentId', [authJwt.verifyToken, authJwt.isAdmin, deleteComment]);
 
 export default router;

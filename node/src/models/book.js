@@ -37,11 +37,22 @@ export function toResponse(document) {
 
     if (document instanceof Array) {
         return document.map(elem => JSON.parse('{"id": "' + elem._id.toString() + '","title": "' + elem.title.toString() + '"}'));
+
     } else {
         let response = document.toObject({ versionKey: false });
         response.id = response._id.toString();
         response.comments = _toResponse(document.comments)
         delete response._id;
         return response;
+    }
+}
+
+export function toFullResponse(document) {
+
+    if (document instanceof Array) {
+        return document.map(elem => toFullResponse(elem));
+
+    } else {
+        return toResponse(document);
     }
 }

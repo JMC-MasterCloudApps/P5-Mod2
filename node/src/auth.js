@@ -7,9 +7,11 @@ const {verify} = jsonwebtoken;
 
 const UNAUTHORIZED_CODE = 401;
 const FORBIDDEN_CODE = 403;
+const INTERNAL_ERROR_CODE = 500;
 
 const NO_TOKEN_RESPONSE = { message: "No token provided!" };
 const UNAUTHORIZED_RESPONSE = { message: "Unauthorized!" };
+const ADMIN_REQUIRED = { message: "Admin Role required!" };
 
 let verifyToken = (req, res, next) => {
 
@@ -25,31 +27,31 @@ let verifyToken = (req, res, next) => {
 };
 
 let isAdmin = (req, res, next) => {
-    User.findById(req.userId).exec((err, user) => {
+
+    User.findById(req.userId)
+        .exec((err, user) => {
         if (err) {
-            res.status(500).send({ message: err });
+            res.status(INTERNAL_ERROR_CODE).send({ message: err });
             return;
         }
 
-        Role.find(
-            {
+        Role.find({
                 _id: { $in: user.roles }
             },
             (err, roles) => {
                 if (err) {
-                    res.status(500).send({ message: err });
+                    res.status(INTERNAL_ERROR_CODE).send({ message: err });
                     return;
                 }
 
-                for (let i = 0; i < roles.length; i++) {
-                    if (roles[i].name === "admin") {
+                for (let role of roles) {
+                    if (role.name === "admin") {
                         next();
                         return;
                     }
                 }
 
-                res.status(403).send({ message: "Require Admin Role!" });
-                return;
+                res.status(FORBIDDEN_CODE).send(ADMIN_REQUIRED);
             }
         );
     });

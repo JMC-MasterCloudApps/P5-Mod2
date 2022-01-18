@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 import { Role } from './models/role.js';
 import { User } from './models/user.js';
 import { Book } from './models/book.js';
+import bcryptjs from 'bcryptjs';
+
+const { hashSync, compareSync } = bcryptjs;
 
 const url = 'mongodb://localhost:27017/booksDB';
 const ADMIN = {name: 'admin'}
@@ -10,13 +13,13 @@ const USER1 = {
     _id: new mongoose.Types.ObjectId('5fda3234e9e3fd53e3907bed'),
     nick: 'user1',
     email: 'user1@email.es',
-    password: 'pass'
+    password: hashSync('pass', 10)
 };
 const USER2 = {
     _id: new mongoose.Types.ObjectId('5fda3234e9e3fd53e3907bef'),
     nick: 'user2',
     email: 'user2@email.es',
-    password: 'pass'
+    password: hashSync('pass', 10)
 };
 const BOOK1 = {
     _id: new mongoose.Types.ObjectId('5fda3234e9e3fd53e3907bf0'),

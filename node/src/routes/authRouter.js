@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { User, toResponse as ResponseUser } from '../models/user.js';
 import { Role } from '../models/role.js';
-import { toResponse as toResponseComment } from '../models/comment.js';
-import mongoose from 'mongoose';
+import bcryptjs from 'bcryptjs';
+
+const { hashSync, compareSync } = bcryptjs;
 
 const NOT_FOUND_CODE = 400;
 
@@ -41,7 +42,7 @@ router.post('/signup',async (req, res) => {
     const user = new User({
             "nick": req.body.username,
             "email": req.body.email,
-            "password": req.body.password,
+            "password": hashSync(req.body.password, 10),
             "roles": roleDB.id
         });
 

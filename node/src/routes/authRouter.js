@@ -5,12 +5,13 @@ import { toResponse as toResponseComment } from '../models/comment.js';
 import mongoose from 'mongoose';
 
 const NOT_FOUND_CODE = 400;
-const INTERNAL_ERROR_CODE = 500;
 
 const USERNAME_REQUIRED_RESPONSE = { "error": "User name is mandatory." }
 const EMAIL_REQUIRED_RESPONSE = { "error": "Email is mandatory." }
 const PASS_REQUIRED_RESPONSE = { "error": "Password is mandatory." }
 const ROLE_REQUIRED_RESPONSE = { "error": "Role not found." }
+const USERNAME_TAKEN_RESPONSE = { message: "Failed! Username is already in use!" };
+const EMAIL_TAKEN_RESPONSE = { message: "Failed! Email is already in use!" };
 
 const router = Router();
 
@@ -21,15 +22,18 @@ router.post('/signup',async (req, res) => {
         return res.status(NOT_FOUND_CODE).send(verifyResult);
     }
 
-    await User.findOne({nick: req.body.username})
-        .exec((err, userDB) => {
-            if (err) return res.status(INTERNAL_ERROR_CODE).send({message: err});
-            if (userDB) return res.status(NOT_FOUND_CODE).send({ message: "Failed! Username is already in use!" });
-        });
+    let userDB = await User.findOne({nick: req.body.username});
+    if (userDB) {
+        return res.status(NOT_FOUND_CODE).send(USERNAME_TAKEN_RESPONSE);
+    }
 
-    const roleDB = await Role.findOne({name: req.body.roles});
+    userDB = await User.findOne({email: req.body.email});
+    if (userDB) {
+        return res.status(NOT_FOUND_CODE).send(EMAIL_TAKEN_RESPONSE);
+    }
+
+    let roleDB = await Role.findOne({name: req.body.roles});
     if (!roleDB) {
-        console.log(ROLE_REQUIRED_RESPONSE);
         return res.status(NOT_FOUND_CODE).send(ROLE_REQUIRED_RESPONSE);
     }
 
@@ -44,7 +48,7 @@ router.post('/signup',async (req, res) => {
         .then(userDB => res.json(ResponseUser(userDB)))
         .catch(error => {
             console.log(error);
-            res.status(400).send(error);
+            res.status(NOT_FOUND_CODE).send(error);
         });
 });
 

@@ -1,9 +1,16 @@
 import express, { json } from 'express';
+import { readFileSync } from 'fs';
+import { createServer } from 'https';
 import { connect, disconnect } from './database.js';
 import booksRouter from './routes/bookRouter.js';
 import usersRouter from './routes/userRouter.js';
 import authRouter from './routes/authRouter.js';
 
+const httpsOptions = {
+    key: readFileSync('server.key'),
+    cert: readFileSync('server.cert')};
+
+const SERVER_PORT = 3000;
 const app = express();
 
 //Convert json bodies to JavaScript object
@@ -23,9 +30,8 @@ async function main() {
 
     await connect();
 
-    app.listen(3000, () => {
-        console.log('Server listening on port 3000!');
-    });
+    createServer(httpsOptions, app)
+        .listen(SERVER_PORT, () => console.log('Server listening on port 3000!'));
 
     process.on('SIGINT', () => {
         disconnect();

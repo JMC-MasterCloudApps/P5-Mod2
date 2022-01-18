@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {raw, Router} from 'express';
 import { Book, toResponse as toResponseBook } from '../models/book.js';
 import { User } from '../models/user.js';
 import { toResponse as toResponseComment } from '../models/comment.js';
@@ -17,9 +17,7 @@ const getAllBooks = async function(req, res) {
 
 router.get('/', [authJwt.verifyToken, getAllBooks]);
 
-//	b. Obtener toda la información de un libro determinado y además sus
-//	comentarios.
-router.get('/:id', async (req, res) => {
+const bookDetail = async function (req, res) {
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,16 +26,16 @@ router.get('/:id', async (req, res) => {
 
     //If nick and name is placed in the comment, there is no need to populate.
     const book = await Book.findById(id).populate('comments.user');
-    
+
     if (!book) {
         return res.status(404).send(BOOK_NOT_FOUND_RESPONSE);
     }
 
     res.json(toResponseBook(book));
-});
+};
+router.get('/:id', [authJwt.verifyToken, bookDetail]);
 
-//	e. Obtener la información de un comentario concreto.
-router.get('/:id/comments/:commentId', async (req, res) => {
+const commentDetail = async function (req, res) {
     const id = req.params.id;
     const commentId = req.params.commentId;
 
@@ -59,10 +57,10 @@ router.get('/:id/comments/:commentId', async (req, res) => {
     }
 
     res.json(toResponseComment(comment));
-});
+}
+router.get('/:id/comments/:commentId', [authJwt.verifyToken, commentDetail]);
 
-//	c. Crear un libro.
-router.post('/', async (req, res) => {
+const createBook = async function (req, res) {
 
     const book = new Book({
         title: req.body.title,
@@ -79,10 +77,10 @@ router.post('/', async (req, res) => {
             res.status(400).send(error);
         });
 
-});
+};
+router.post('/', [authJwt.verifyToken, createBook]);
 
-//	d. Crear un comentario asociado a un libro.
-router.post('/:id/comments', async (req, res) => {
+const createComment = async function (req, res) {
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -119,10 +117,10 @@ router.post('/:id/comments', async (req, res) => {
             res.status(400).send(error);
         });
 
-});
+};
+router.post('/:id/comments', [authJwt.verifyToken, createComment]);
 
-//	b. Borrar un libro
-router.delete('/:id', async (req, res) => {
+const deleteBook = async function (req, res)  {
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -137,10 +135,10 @@ router.delete('/:id', async (req, res) => {
     await book.delete();
     res.json(toResponseBook(book));
 
-});
+};
+router.delete('/:id', [authJwt.verifyToken, deleteBook]);
 
-//	c. Borrar un comentario
-router.delete('/:id/comments/:commentId', async (req, res) => {
+const deleteComment = async function(req, res) {
     const id = req.params.id;
     const commentId = req.params.commentId;
 
@@ -165,6 +163,7 @@ router.delete('/:id/comments/:commentId', async (req, res) => {
     await book.save();
     res.json(toResponseComment(comment));
 
-});
+};
+router.delete('/:id/comments/:commentId', [authJwt.verifyToken, deleteComment]);
 
 export default router;

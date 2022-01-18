@@ -3,31 +3,19 @@ import { Book, toResponse as toResponseBook } from '../models/book.js';
 import { User } from '../models/user.js';
 import { toResponse as toResponseComment } from '../models/comment.js';
 import mongoose from 'mongoose';
+import authJwt from "../auth.js";
 
 const INVALID_BOOK_ID_RESPONSE = { "error": "Invalid book id" };
 const BOOK_NOT_FOUND_RESPONSE = { "error": "Book not found" }
 
 const router = Router();
 
-//	Las siguientes operaciones las puede realizar cualquier usuario anónimo:
-
-
-//4- Las siguientes operaciones las puede realizar cualquier usuario con el rol “user”.
-//	a. Obtener un listado con toda la información de los libros.
-
-
-
-//5- Las siguientes operaciones las puede realizar cualquier usuario con el rol “admin”.
-//	a. Todas las del punto 4.
-
-
-
-//	a. Obtener un listado con el identificador y el título de cada uno de los libros
-//		(pero no el resto de la información).
-router.get('/', async (req, res) => {
+const getAllBooks = async function(req, res) {
     const allBooks = await Book.find().exec();
     res.json(toResponseBook(allBooks));
-});
+}
+
+router.get('/', [authJwt.verifyToken, getAllBooks]);
 
 //	b. Obtener toda la información de un libro determinado y además sus
 //	comentarios.

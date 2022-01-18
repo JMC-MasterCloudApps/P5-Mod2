@@ -10,7 +10,14 @@ const app = express();
 app.use(json());
 app.use('/api/v1/books', booksRouter);
 app.use('/api/v1/users', usersRouter);
-app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/auth', authRouter);
+app.use(function(req, res, next){
+    res.header(
+        'Access-Control-Allow-Headers',
+        'x-access-token, Origin, Content-Type, Accept'
+    );
+    next();
+});
 
 async function main() {
 
